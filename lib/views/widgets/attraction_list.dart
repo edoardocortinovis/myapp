@@ -15,23 +15,52 @@ class AttractionList extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 8,
           mainAxisSpacing: 8,
-          mainAxisExtent: 100,
+          mainAxisExtent: 200, // Aumenta l'altezza per includere l'immagine
         ),
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.blue,
+          return Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Center(
-              child: Text(
-                attractionList[index].name,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+            child: Column(
+              children: [
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      attractionList[index].imageUrl,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Center(
+                          child: Icon(
+                            Icons.broken_image,
+                            size: 50,
+                            color: Colors.grey,
+                          ),
+                        );
+                      },
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    attractionList[index].name,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         },

@@ -1,5 +1,6 @@
 class AttractionListItem {
   final String name;
-  final String url;
-  AttractionListItem({required this.name, required this.url});
+  final String imageUrl;
+
+  AttractionListItem({required this.name, required this.imageUrl});
 }

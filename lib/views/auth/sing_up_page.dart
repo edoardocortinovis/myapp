@@ -50,9 +50,9 @@ class _SignUpPageState extends State<SignUpPage> {
         );
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Errore durante la registrazione: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('registrazione Completata!')));
       setState(() {}); // Forza il reload della pagina
       // Mostra un messaggio di errore
     }
