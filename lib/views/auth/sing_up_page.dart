@@ -10,8 +10,10 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final _firstNameController = TextEditingController(); // Controller per il nome
-  final _lastNameController = TextEditingController();  // Controller per il cognome
+  final _firstNameController =
+      TextEditingController(); // Controller per il nome
+  final _lastNameController =
+      TextEditingController(); // Controller per il cognome
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _supabase = Supabase.instance.client;
@@ -48,8 +50,11 @@ class _SignUpPageState extends State<SignUpPage> {
         );
       }
     } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Errore durante la registrazione: $e')),
+      );
+      setState(() {}); // Forza il reload della pagina
       // Mostra un messaggio di errore
-      
     }
   }
 

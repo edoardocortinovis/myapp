@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Tripsphere',
-      theme: TripsphereTheme, // Usa il tuo tema personalizzato
+      theme: tripsphereTheme, // Usa il tuo tema personalizzato
       home: const AuthWrapper(), // Controlla lo stato di autenticazione
     );
   }

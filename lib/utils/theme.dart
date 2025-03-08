@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'palette.dart';
 
-final TripsphereTheme = ThemeData(
+final tripsphereTheme = ThemeData(
   primarySwatch: gray,
   textTheme: TextTheme(
     displaySmall: GoogleFonts.roboto(
