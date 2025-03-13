@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'login_page.dart'; // Importa la pagina di accesso
+import 'login_page.dart'; // Importa la pagina di login
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -16,7 +16,9 @@ class _SignUpPageState extends State<SignUpPage> {
       TextEditingController(); // Controller per il cognome
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _supabase = Supabase.instance.client;
+
+  // Ottieni l'istanza di Supabase
+  final SupabaseClient _supabase = Supabase.instance.client;
 
   Future<void> _signUp() async {
     try {
@@ -28,15 +30,13 @@ class _SignUpPageState extends State<SignUpPage> {
 
       if (response.user != null) {
         // Salva i dati dell'utente nella tabella `utenti`
-        await _supabase
-            .from('utenti') // Nome della tabella
-            .upsert({
-              'uuid': response.user!.id, // Usa l'UUID nella colonna `uuid`
-              'nome': _firstNameController.text,
-              'cognome': _lastNameController.text,
-              'email': _emailController.text,
-              // Non memorizzare la password in chiaro!
-            });
+        await _supabase.from('utenti').upsert({
+          'uuid': response.user!.id, // Usa l'UUID nella colonna `uuid`
+          'nome': _firstNameController.text,
+          'cognome': _lastNameController.text,
+          'email': _emailController.text,
+          // Non memorizzare la password in chiaro!
+        });
 
         // Mostra un messaggio di successo
         ScaffoldMessenger.of(context).showSnackBar(
@@ -50,11 +50,9 @@ class _SignUpPageState extends State<SignUpPage> {
         );
       }
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('registrazione Completata!')));
-      setState(() {}); // Forza il reload della pagina
-      // Mostra un messaggio di errore
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Errore durante la registrazione: $e')),
+      );
     }
   }
 
